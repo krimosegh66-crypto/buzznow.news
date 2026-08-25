@@ -226,23 +226,34 @@ const FEEDS=[
   {u:'https://www.youtube.com/feeds/videos.xml?chart=mostPopular',c:'videos',b:'YouTube'},{u:'https://rss.nytimes.com/services/xml/rss/nyt/MostPopular.xml',c:'videos',b:'Most Popular'}
 ];
 
-/* ═══ IP + COUNTRY DETECTION ═══ */
+/* ═══ IP + COUNTRY DETECTION (3 parallel APIs for speed) ═══ */
+let ipDetected=false;
 async function detectIP(){
-  try{
-    const r=await fetch('https://ipapi.co/json/');
-    const d=await r.json();
-    if(d.country_code){
-      userCountry=d.country_code;
-      document.getElementById('hdrFlag').textContent=getFlag(d.country_name);
-      document.getElementById('localFlag').textContent=getFlag(d.country_name);
-      document.getElementById('localCountry').textContent=d.country_name+' ('+d.country_code+')';
-      if(COUNTRY_LANG[d.country_code]){
-        const saved=localStorage.getItem('buzznow_lang');
-        if(!saved)localStorage.setItem('buzznow_lang',COUNTRY_LANG[d.country_code]);
+  const apis=[
+    ()=>fetch('https://ipapi.co/json/').then(r=>r.json()),
+    ()=>fetch('https://ipwho.is/').then(r=>r.json()),
+    ()=>fetch('https://ipinfo.io/json').then(r=>r.json())
+  ];
+  const tryAPIs=apis.map(fn=>fn().catch(()=>null));
+  const results=await Promise.allSettled(tryAPIs);
+  for(const r of results){
+    if(r.status==='fulfilled'&&r.value){
+      const d=r.value;
+      const cc=d.country_code||d.country_code;
+      const cn=d.country_name||d.country;
+      if(cc){
+        ipDetected=true;
+        userCountry=cc;
+        if(d.latitude)userLat=d.latitude;if(d.longitude)userLon=d.longitude;
+        document.getElementById('hdrFlag').textContent=getFlag(cn||cc);
+        document.getElementById('localFlag').textContent=getFlag(cn||cc);
+        document.getElementById('localCountry').textContent=(cn||cc)+' ('+cc+')';
+        if(COUNTRY_LANG[cc]){const saved=localStorage.getItem('buzznow_lang');if(!saved)localStorage.setItem('buzznow_lang',COUNTRY_LANG[cc])}
+        break;
       }
     }
-    if(d.latitude&&d.longitude){userLat=d.latitude;userLon=d.longitude}
-  }catch(e){document.getElementById('localCountry').textContent='Global'}
+  }
+  if(!ipDetected){document.getElementById('localCountry').textContent='Global'}
 }
 
 /* ═══ LANGUAGE ═══ */
@@ -302,15 +313,19 @@ function renderGrid(id,arts){
     e.onclick=()=>window.open(a.link,'_blank');g.appendChild(e)});
 }
 
-function renderTrending(){const l=document.getElementById('trendList');const s=[...allArticles].sort(()=>Math.random()-.5).slice(0,8);
-  l.innerHTML=s.map((a,i)=>'<div class="px-4 py-3 cursor-pointer hover:bg-white/5 transition-all border-b border-white/3 last:border-0" onclick="window.open(\''+esc(a.link)+'\',\'_blank\')"><div class="text-[10px] font-bold mb-1 uppercase tracking-wider" style="color:'+CC[a.cat]+'">'+a.cat.toUpperCase()+'</div><div class="text-xs font-bold leading-snug line-clamp-2 mb-1">'+esc(a.title)+'</div><div class="text-[10px] text-gray-500">'+esc(a.source)+' · '+ago(a.date)+'</div></div>').join('')}
+function renderTrending(){
+  const l=document.getElementById('trendList');
+  const s=[...allArticles].sort((a,b)=>b.date-a.date).slice(0,10);
+  l.innerHTML=s.map((a,i)=>'<div class="px-4 py-3 cursor-pointer hover:bg-white/5 transition-all border-b border-white/5 last:border-0 flex gap-3 items-start" onclick="window.open(\''+esc(a.link)+'\',\'_blank\')"><span class="text-base font-black min-w-[22px] font-display shrink-0" style="color:'+(i<3?'#00d4ff':'#4a5568')+'">'+(i+1)+'</span><div class="min-w-0"><div class="text-[9px] font-bold mb-0.5 uppercase tracking-wider" style="color:'+CC[a.cat]+'">'+a.cat.toUpperCase()+'</div><div class="text-xs font-bold leading-snug line-clamp-2 mb-0.5">'+esc(a.title)+'</div><div class="text-[10px] text-gray-500">'+esc(a.source)+' · '+ago(a.date)+'</div></div></div>').join('')}
 
 function renderTags(){const cats={};allArticles.forEach(a=>{cats[a.cat]=(cats[a.cat]||0)+1});const sorted=Object.entries(cats).sort((a,b)=>b[1]-a[1]).slice(0,12);
   document.getElementById('trendTags').innerHTML=sorted.map(([c,n])=>'<span class="tag-pill px-3 py-1.5 rounded-full text-[10px] font-semibold border border-white/10 bg-white/5 text-gray-400 cursor-pointer hover:bg-neon/20 hover:text-neon hover:border-neon/30 transition-all" data-cat="'+c+'">'+c+' ('+n+')</span>').join('');
   document.querySelectorAll('#trendTags [data-cat]').forEach(t=>{t.onclick=()=>{curCat=t.dataset.cat;document.querySelectorAll('#catTabs [data-cat]').forEach(x=>{const a=x.dataset.cat===curCat;x.classList.toggle('bg-neon/20',a);x.classList.toggle('text-neon',a);x.classList.toggle('border-neon/30',a);x.classList.toggle('text-gray-400',!a);x.classList.toggle('bg-white/5',!a)});infPage=1;renderAll()}})}
 
-function renderLocal(){const local=byCat(['world','politics'],10);const l=document.getElementById('localList');
-  l.innerHTML=local.map((a,i)=>'<div class="flex items-start gap-2.5 px-4 py-3 cursor-pointer hover:bg-white/5 transition-all border-b border-white/3 last:border-0" onclick="window.open(\''+esc(a.link)+'\',\'_blank\')"><span class="text-base font-black min-w-[24px] font-display" style="color:'+(i<3?'#00d4ff':'#4a5568')+'">'+(i+1)+'</span><div class="min-w-0"><h4 class="text-xs font-bold leading-snug line-clamp-2 mb-1">'+esc(a.title)+'</h4><span class="text-[10px] text-gray-500">'+esc(a.source)+' · '+ago(a.date)+'</span></div></div>').join('')}
+function renderLocal(){
+  const local=[...allArticles].sort((a,b)=>b.date-a.date).slice(0,15);
+  const l=document.getElementById('localList');
+  l.innerHTML=local.map((a,i)=>'<div class="flex items-start gap-2.5 px-4 py-3 cursor-pointer hover:bg-white/5 transition-all border-b border-white/5 last:border-0" onclick="window.open(\''+esc(a.link)+'\',\'_blank\')"><span class="text-base font-black min-w-[24px] font-display" style="color:'+(i<3?'#00d4ff':'#4a5568')+'">'+(i+1)+'</span><div class="min-w-0"><h4 class="text-xs font-bold leading-snug line-clamp-2 mb-1">'+esc(a.title)+'</h4><span class="text-[10px] text-gray-500">'+esc(a.source)+' · '+ago(a.date)+'</span></div></div>').join('')}
 
 /* ═══ INFINITE SCROLL ═══ */
 let infiniteObs=null;
@@ -388,14 +403,12 @@ function toggleTheme(){const h=document.documentElement;const b=document.body;co
 function ago(d){const t=I18N[curLang];const s=Math.floor((Date.now()-d.getTime())/1000);if(s<60)return t.justNow||'now';if(s<3600)return Math.floor(s/60)+(t.m||'m');if(s<86400)return Math.floor(s/3600)+(t.h||'h');return Math.floor(s/86400)+(t.d||'d')}
 function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
 
-/* ═══ INIT — PARALLEL ═══ */
+/* ═══ INIT — PARALLEL (non-blocking) ═══ */
 (async()=>{
-  await detectIP();
   const saved=localStorage.getItem('buzznow_lang');
   if(saved&&I18N[saved])curLang=saved;
   applyLang(curLang);
-  await Promise.all([loadNews(),loadWeather()]);
-  startAuto();
+  Promise.all([detectIP(),loadNews(),loadWeather()]).then(()=>startAuto());
 })();
 </script>
 </body>
