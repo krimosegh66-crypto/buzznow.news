@@ -152,6 +152,9 @@ html[data-lang="ar"] body{font-family:'Noto Sans Arabic','Inter',sans-serif}
   </aside>
 </div>
 
+<!-- ═══ BACK TO TOP ═══ -->
+<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-20 right-5 z-40 w-11 h-11 rounded-xl bg-gradient-to-br from-neon to-neon2 text-white flex items-center justify-center shadow-lg shadow-neon/30 opacity-0 invisible translate-y-4 transition-all duration-300 hover:scale-110 hover:shadow-neon/50 max-[1100px]:bottom-16">↑</button>
+
 <!-- ═══ FOOTER ═══ -->
 <footer class="bg-cy2 border-t border-white/5 mt-8">
   <div class="cyber-line"></div>
@@ -345,7 +348,12 @@ function loadMore(){
   const sent=document.getElementById('sentinel');
   if(sent){if(start+12>=allArticles.length){sent.innerHTML='<span class="text-gray-600 text-xs">— End of feed —</span>'}else{sent.innerHTML='<span class="inline-block w-5 h-5 border-2 border-white/10 border-t-neon rounded-full animate-spin mr-2 align-middle"></span><span data-i18n="loadingMore">Loading more...</span>'}}
 }
-window.addEventListener('scroll',()=>{if((window.innerHeight+window.scrollY)>=document.body.offsetHeight-600){loadMore()}},{passive:true});
+window.addEventListener('scroll',()=>{
+  if((window.innerHeight+window.scrollY)>=document.body.offsetHeight-600){loadMore()}
+  const btn=document.getElementById('backToTop');
+  if(window.scrollY>400){btn.classList.remove('opacity-0','invisible','translate-y-4');btn.classList.add('opacity-100','visible','translate-y-0')}
+  else{btn.classList.add('opacity-0','invisible','translate-y-4');btn.classList.remove('opacity-100','visible','translate-y-0')}
+},{passive:true});
 
 /* ═══ WEATHER + SUNRISE/SUNSET (Open-Meteo — free, no key) ═══ */
 async function loadWeather(){
