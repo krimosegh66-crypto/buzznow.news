@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BuzzNow — Global News & Trends</title>
+<meta name="description" content="BuzzNow: Real-time global news, politics, economics, sports, crime, cinema, games, inventions, and trending videos.">
+<meta name="keywords" content="news,politics,economy,sports,crime,cinema,gaming,trending,أخبار,رياضة,سياسة">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#080c18">
+<meta property="og:type" content="website"><meta property="og:site_name" content="BuzzNow"><meta property="og:title" content="BuzzNow — Global News & Trends"><meta property="og:description" content="Real-time global news and trends."><meta property="og:image" content="https://picsum.photos/1200/630?random=buzz"><meta property="og:locale" content="en_US"><meta property="og:locale:alternate" content="ar_AR">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="BuzzNow"><meta name="twitter:description" content="Real-time global news."><meta name="twitter:image" content="https://picsum.photos/1200/630?random=buzz">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"BuzzNow","url":"https://buzznow.example.com","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://buzznow.example.com/?q={search_term_string}"},"query-input":"required name=search_term_string"}}</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config={theme:{extend:{colors:{cy:'#080c18',cy2:'#0e1425',cy3:'#141c32',cy4:'#1c2740',neon:'#00d4ff',neon2:'#7c3aed',neon3:'#f43f5e',neon4:'#22c55e'},fontFamily:{sans:['Inter','system-ui','sans-serif'],display:['Playfair Display','Georgia','serif'],ar:['Noto Sans Arabic','Inter','sans-serif']}}}}
+</script>
+<style>
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes glow{0%,100%{box-shadow:0 0 8px rgba(0,212,255,.3)}50%{box-shadow:0 0 20px rgba(0,212,255,.6)}}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@keyframes spin2{to{transform:rotate(360deg)}}
+@keyframes slideRight{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+.ticker-anim{animation:ticker 80s linear infinite}
+html[dir="rtl"] .ticker-anim{animation-direction:reverse;padding-left:0;padding-right:130px}
+html[dir="rtl"] .hdr-srch input{padding-left:14px;padding-right:36px}
+html[dir="rtl"] .hdr-srch .si{left:auto;right:12px}
+.fin{animation:fadeUp .5s ease both}
+.shimmer{background:linear-gradient(90deg,#141c32 25%,#1c2740 50%,#141c32 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+.spin{animation:spin2 .8s linear infinite}
+.glow-border{animation:glow 3s ease-in-out infinite}
+.glass{background:rgba(14,20,37,.6);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.06)}
+.hero-grad{background:linear-gradient(135deg,#080c18 0%,#0e1425 40%,#141c32 100%)}
+.cyber-line{background:linear-gradient(90deg,transparent,rgba(0,212,255,.3),transparent);height:1px}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#080c18}::-webkit-scrollbar-thumb{background:#00d4ff;border-radius:3px}
+html[data-lang="ar"] body{font-family:'Noto Sans Arabic','Inter',sans-serif}
+</style>
+</head>
+<body class="bg-cy text-gray-200 font-sans overflow-x-hidden">
+
+<!-- ═══ HEADER ═══ -->
+<header class="sticky top-0 z-50 glass">
+  <div class="max-w-[1440px] mx-auto px-4 py-2 flex items-center gap-3">
+    <div class="flex items-center gap-2 shrink-0 cursor-pointer">
+      <div class="w-9 h-9 bg-gradient-to-br from-neon to-neon2 rounded-lg flex items-center justify-center text-white font-black text-sm shadow-lg shadow-neon/20">B</div>
+      <div class="font-display text-xl font-black text-white">Buzz<span class="text-neon">Now</span></div>
+    </div>
+    <div class="hdr-srch flex-1 max-w-[380px] relative">
+      <span class="si absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">🔍</span>
+      <input type="search" id="searchInput" class="w-full pl-9 pr-3 py-2 bg-cy3/80 border border-white/8 rounded-lg text-sm text-gray-200 focus:outline-none focus:border-neon/50 focus:ring-1 focus:ring-neon/20 transition" data-i18n-ph="search" placeholder="Search news..." autocomplete="off">
+    </div>
+    <div class="flex items-center gap-2 ml-auto">
+      <div class="hidden sm:flex items-center gap-1.5 text-xs text-gray-500"><span class="w-1.5 h-1.5 bg-neon4 rounded-full animate-pulse"></span><span id="clock" class="tabular-nums">--:--</span></div>
+      <button onclick="manualRefresh()" id="refreshBtn" class="w-8 h-8 rounded-lg border border-white/8 bg-white/5 text-gray-300 flex items-center justify-center text-sm hover:border-neon/50 hover:bg-neon/10 hover:text-neon transition" title="Refresh">🔄</button>
+      <span id="hdrFlag" class="text-xl cursor-default" title="Country">🌍</span>
+      <div class="relative">
+        <button onclick="toggleLang()" id="langBtn" class="w-8 h-8 rounded-lg border border-white/8 bg-white/5 text-gray-300 flex items-center justify-center text-xs font-bold hover:border-neon/50 hover:bg-neon/10 hover:text-neon transition">EN</button>
+        <div id="langDrop" class="absolute right-0 top-full mt-1.5 bg-cy2 border border-white/10 rounded-lg p-1.5 min-w-[150px] shadow-xl opacity-0 invisible -translate-y-1.5 transition-all duration-200 z-50"></div>
+      </div>
+      <button onclick="toggleTheme()" id="themeBtn" class="w-8 h-8 rounded-lg border border-white/8 bg-white/5 text-gray-300 flex items-center justify-center text-sm hover:border-neon/50 hover:bg-neon/10 hover:text-neon transition">🌙</button>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ WEATHER STRIP ═══ -->
+<div class="hero-grad border-b border-white/5">
+  <div class="max-w-[1440px] mx-auto px-4 py-2 flex items-center gap-4 text-xs text-white/60">
+    <span class="font-bold text-neon shrink-0 flex items-center gap-1.5">☀️ <span data-i18n="weather">Weather</span></span>
+    <div class="flex gap-5 overflow-x-auto flex-1 whitespace-nowrap" id="wsScroll">
+      <span class="shrink-0 text-gray-500">📍 Loading weather...</span>
+    </div>
+    <span class="shrink-0 flex items-center gap-3 text-white/40" id="wsSun">🌅 --:-- 🌇 --:--</span>
+    <span class="font-bold text-neon shrink-0" id="wsCity">🌍 ...</span>
+  </div>
+</div>
+<div class="cyber-line"></div>
+
+<!-- ═══ MAIN 3-COLUMN ═══ -->
+<div class="max-w-[1440px] mx-auto px-4 py-5 grid grid-cols-[280px_1fr_280px] gap-5 max-[1100px]:grid-cols-1 max-[1100px]:gap-6">
+
+  <!-- ═══ RIGHT — TRENDING ═══ -->
+  <aside class="max-[1100px]:order-2">
+    <div class="glass rounded-xl overflow-hidden sticky top-16 glow-border">
+      <div class="px-4 py-3 border-b border-white/5 flex items-center gap-2"><span class="text-base">🔥</span><h3 class="text-sm font-bold" data-i18n="trending">Trending Now</h3></div>
+      <div id="trendList" class="divide-y divide-white/5 max-h-[400px] overflow-y-auto"></div>
+    </div>
+    <div class="glass rounded-xl overflow-hidden mt-3">
+      <div class="px-4 py-3 border-b border-white/5 flex items-center gap-2"><span class="text-base">📌</span><h3 class="text-sm font-bold" data-i18n="hotTags">Hot Topics</h3></div>
+      <div id="trendTags" class="p-3 flex flex-wrap gap-1.5"></div>
+    </div>
+  </aside>
+
+  <!-- ═══ CENTER ═══ -->
+  <section class="max-[1100px]:order-1">
+    <div class="flex gap-1 overflow-x-auto pb-2 mb-4" id="catTabs"></div>
+
+    <!-- HERO — LARGE BREAKING CARD -->
+    <article id="heroCard" class="relative rounded-2xl overflow-hidden h-[440px] max-[768px]:h-[280px] cursor-pointer group mb-5">
+      <img id="heroImg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" src="" alt="">
+      <div class="absolute inset-0 bg-gradient-to-t from-cy via-cy/50 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-cy/80 to-transparent"></div>
+      <div class="absolute inset-0 flex flex-col justify-end p-7 max-[768px]:p-4">
+        <div id="heroBadge" class="inline-flex w-fit px-3 py-1 rounded-full text-[10px] font-bold text-white mb-3 uppercase tracking-wider">LIVE</div>
+        <h1 id="heroTitle" class="font-display text-[2rem] max-[768px]:text-xl font-black text-white leading-tight mb-2 drop-shadow-lg" data-i18n="loading">Loading latest news...</h1>
+        <p id="heroDesc" class="text-white/55 text-sm max-w-lg line-clamp-2 mb-2"></p>
+        <div class="flex items-center gap-3 text-white/40 text-xs"><span id="heroSrc" class="font-semibold text-neon/70">—</span><span>·</span><span id="heroTime">—</span></div>
+      </div>
+      <div class="absolute top-4 right-4 flex gap-2">
+        <span class="glass px-2.5 py-1 rounded-full text-[10px] font-bold text-neon">⚡ LIVE</span>
+      </div>
+    </article>
+
+    <!-- BREAKING NEWS ROW — 3 CARDS -->
+    <div class="grid grid-cols-3 gap-3 mb-5 max-[768px]:grid-cols-1" id="breakingRow"></div>
+
+    <!-- SECTIONS -->
+    <div id="sections"></div>
+
+    <div id="sentinel" class="py-8 text-center text-gray-500 text-sm">
+      <span class="inline-block w-5 h-5 border-2 border-white/10 border-t-neon rounded-full animate-spin mr-2 align-middle"></span>
+      <span data-i18n="loadingMore">Loading more...</span>
+    </div>
+  </section>
+
+  <!-- ═══ LEFT — LOCAL ═══ -->
+  <aside class="max-[1100px]:order-3">
+    <div class="glass rounded-xl overflow-hidden sticky top-16">
+      <div class="px-4 py-3 border-b border-white/5 flex items-center gap-3">
+        <span id="localFlag" class="text-3xl">🌍</span>
+        <div><h3 class="text-sm font-bold" data-i18n="localNews">Local News</h3><span id="localCountry" class="text-xs text-gray-500" data-i18n="detecting">Detecting...</span></div>
+      </div>
+      <div id="localList" class="max-h-[500px] overflow-y-auto"></div>
+      <div class="px-3 py-2.5 text-center text-xs text-neon cursor-pointer border-t border-white/5 hover:bg-white/5 transition" data-i18n="showMore">Show More →</div>
+    </div>
+  </aside>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="bg-cy2 border-t border-white/5">
+  <div class="cyber-line"></div>
+  <div class="max-w-[1440px] mx-auto px-5 py-8 grid grid-cols-[2fr_1fr_1fr_1fr] gap-6 max-[768px]:grid-cols-2">
+    <div><div class="flex items-center gap-2 mb-2"><div class="w-7 h-7 bg-gradient-to-br from-neon to-neon2 rounded-md flex items-center justify-center text-white font-black text-xs">B</div><span class="font-display text-lg font-black text-white">Buzz<span class="text-neon">Now</span></span></div><p class="text-gray-400 text-xs max-w-[260px]" data-i18n="footerDesc">Your pulse on world events.</p></div>
+    <div><h4 class="text-xs font-bold mb-2" data-i18n="news">News</h4><a href="#" class="block text-xs text-gray-500 py-0.5 hover:text-neon transition">World</a><a href="#" class="block text-xs text-gray-500 py-0.5 hover:text-neon transition">Politics</a><a href="#" class="block text-xs text-gray-500 py-0.5 hover:text-neon transition">Economy</a><a href="#" class="block text-xs text-gray-500 py-0.5 hover:text-neon transition">Tech</a></div>
+    <div><h4 class="text-xs font-bold mb-2" data-i18n="entertainment">Entertainment</h4><a href="#" class="block text-xs text-gray-500 py-0.5 hover:text-neon transition">Cinema</a><a href="#" class="block text-xs text-gray-500 py-0.5 hover:text-neon transition">Gaming</a><a href="#" class="block text-xs text-gray-500 py-0.5 hover:text-neon transition">Animation</a><a href="#" class="block text-xs text-gray-500 py-0.5 hover:text-neon transition">Sports</a></div>
+    <div><h4 class="text-xs font-bold mb-2" data-i18n="more">More</h4><a href="#" class="block text-xs text-gray-500 py-0.5 hover:text-neon transition">Crime</a><a href="#" class="block text-xs text-gray-500 py-0.5 hover:text-neon transition">Science</a><a href="#" class="block text-xs text-gray-500 py-0.5 hover:text-neon transition">Health</a><a href="#" class="block text-xs text-gray-500 py-0.5 hover:text-neon transition">Inventions</a></div>
+  </div>
+  <div class="max-w-[1440px] mx-auto px-5 py-3 border-t border-white/5 text-center text-xs text-gray-600">&copy; 2026 BuzzNow. <span data-i18n="rights">All rights reserved.</span></div>
+</footer>
+
+<nav class="fixed bottom-0 inset-x-0 bg-cy/95 border-t border-white/5 backdrop-blur-xl z-50 hidden max-[1100px]:flex justify-around py-1.5">
+  <a href="#" class="flex flex-col items-center gap-0.5 text-[10px] text-gray-500 active:text-neon" data-cat="all">🏠<span>Home</span></a>
+  <a href="#" class="flex flex-col items-center gap-0.5 text-[10px] text-gray-500" data-cat="sports">⚽<span>Sports</span></a>
+  <a href="#" class="flex flex-col items-center gap-0.5 text-[10px] text-gray-500" data-cat="cinema">🎬<span>Cinema</span></a>
+  <a href="#" class="flex flex-col items-center gap-0.5 text-[10px] text-gray-500" data-cat="crime">🚨<span>Crime</span></a>
+  <a href="#" class="flex flex-col items-center gap-0.5 text-[10px] text-gray-500">☀️<span>Weather</span></a>
+</nav>
+
+<script>
+/* ═══ BuzzNow v6.0 — Cyber-Magazine ═══ */
+const I18N={
+  en:{dir:'ltr',label:'EN',search:'Search news...',loading:'Loading latest news...',latest:'Latest News',videos:'Trending Videos',sports:'Sports',crime:'Crime',cinema:'Cinema',gaming:'Gaming',science:'Inventions & Science',trending:'Trending Now',hotTags:'Hot Topics',localNews:'Local News',detecting:'Detecting location...',weather:'Weather',showMore:'Show More →',loadingMore:'Loading more...',footerDesc:'Your pulse on world events. Real-time news, trends, and weather — no borders.',rights:'All rights reserved.',news:'News',entertainment:'Entertainment',more:'More',justNow:'just now',m:'m ago',h:'h ago',d:'d ago',noArt:'No articles found.'},
+  ar:{dir:'rtl',label:'عربي',search:'بحث عن أخبار...',loading:'جاري تحميل آخر الأخبار...',latest:'آخر الأخبار',videos:'فيديوهات رائجة',sports:'الرياضة',crime:'الجرائم',cinema:'السينما',gaming:'الألعاب',science:'الاختراعات',trending:'الأكثر رواجاً',hotTags:'مواضيع ساخنة',localNews:'أخبار محلية',detecting:'جاري اكتشاف الموقع...',weather:'الطقس',showMore:'عرض المزيد ←',loadingMore:'جاري التحميل...',footerDesc:'نبضك لأحداث العالم. أخبار فورية وترندات وطقس — بلا حدود.',rights:'جميع الحقوق محفوظة.',news:'أخبار',entertainment:'ترفيه',more:'المزيد',justNow:'الآن',m:' د',h:' س',d:' ي',noArt:'لا توجد مقالات.'},
+  fr:{dir:'ltr',label:'FR',search:'Rechercher...',loading:'Chargement...',latest:'Dernières Actus',videos:'Vidéos Tendances',sports:'Sport',crime:'Crime',cinema:'Cinéma',gaming:'Jeux',science:'Inventions',trending:'Tendances',hotTags:'Sujets Chauds',localNews:'News Locales',detecting:'Détection...',weather:'Météo',showMore:'Voir Plus →',loadingMore:'Chargement...',footerDesc:'Votre actualité mondiale en temps réel.',rights:'Tous droits réservés.'},
+  es:{dir:'ltr',label:'ES',search:'Buscar...',loading:'Cargando...',latest:'Últimas Noticias',videos:'Videos Tendencia',sports:'Deportes',crime:'Crimen',cinema:'Cine',gaming:'Juegos',science:'Invenciones',trending:'Tendencias',hotTags:'Temas Virales',localNews:'Noticias Locales',detecting:'Detectando...',weather:'Clima',showMore:'Ver Más →',loadingMore:'Cargando...'},
+  de:{dir:'ltr',label:'DE',search:'Suchen...',loading:'Laden...',latest:'Neueste Nachrichten',videos:'Trending Videos',sports:'Sport',crime:'Kriminalität',cinema:'Kino',gaming:'Spiele',science:'Erfindungen',trending:'Trends',hotTags:'Hot Topics',localNews:'Lokale Nachrichten',detecting:'Erkennung...',weather:'Wetter',showMore:'Mehr →',loadingMore:'Laden...'},
+  pt:{dir:'ltr',label:'PT',search:'Pesquisar...',loading:'Carregando...',latest:'Últimas Notícias',videos:'Vídeos em Alta',sports:'Esportes',crime:'Crime',cinema:'Cinema',gaming:'Jogos',science:'Invenções',trending:'Em Alta',localNews:'Notícias Locales',weather:'Clima',showMore:'Ver Mais →'},
+  ru:{dir:'ltr',label:'RU',search:'Поиск...',loading:'Загрузка...',latest:'Последние Новости',videos:'Трендовые Видео',sports:'Спорт',crime:'Преступность',cinema:'Кино',gaming:'Игры',science:'Изобретения',trending:'В тренде',localNews:'Местные Новости',weather:'Погода',showMore:'Ещё →'},
+  zh:{dir:'ltr',label:'中文',search:'搜索...',loading:'加载中...',latest:'最新新闻',videos:'热门视频',sports:'体育',crime:'犯罪',cinema:'电影',gaming:'游戏',science:'发明',trending:'趋势',localNews:'本地新闻',weather:'天气',showMore:'更多 →'},
+  ja:{dir:'ltr',label:'日本語',search:'検索...',loading:'読み込み中...',latest:'最新ニュース',videos:'トレンド動画',sports:'スポーツ',crime:'事件',cinema:'映画',gaming:'ゲーム',science:'発明',trending:'トレンド',localNews:'ローカルニュース',weather:'天気',showMore:'もっと →'},
+  tr:{dir:'ltr',label:'TR',search:'Ara...',loading:'Yükleniyor...',latest:'Son Haberler',videos:'Trend Videolar',sports:'Spor',crime:'Suç',cinema:'Sinema',gaming:'Oyun',science:'İcatlar',trending:'Trend',localNews:'Yerel Haberler',weather:'Hava',showMore:'Daha Fazla →'},
+  hi:{dir:'ltr',label:'हि',search:'खोजें...',loading:'लोड हो रहा है...',latest:'ताज़ा समाचार',videos:'ट्रेंडिंग वीडियो',sports:'खेल',crime:'अपराध',cinema:'सिनेमा',gaming:'गेमिंग',science:'आविष्कार',trending:'ट्रेंडिंग',localNews:'स्थानीय समाचार',weather:'मौसम',showMore:'और →'},
+  ko:{dir:'ltr',label:'한',search:'검색...',loading:'로딩 중...',latest:'최신 뉴스',videos:'트렌드 영상',sports:'스포츠',crime:'범죄',cinema:'영화',gaming:'게임',science:'발명',trending:'트렌드',localNews:'지역 뉴스',weather:'날씨',showMore:'더 보기 →'},
+  nl:{dir:'ltr',label:'NL',search:'Zoeken...',loading:'Laden...',latest:'Laatste Nieuws',videos:'Trending Videos',sports:'Sport',crime:'Misdaad',cinema:'Film',gaming:'Games',science:'Uitvindingen',trending:'Trending',localNews:'Lokaal Nieuws',weather:'Weer',showMore:'Meer →'},
+  it:{dir:'ltr',label:'IT',search:'Cerca...',loading:'Caricamento...',latest:'Ultime Notizie',videos:'Video Trending',sports:'Sport',crime:'Cronaca',cinema:'Cinema',gaming:'Giochi',science:'Invenzioni',trending:'Tendenze',localNews:'Notizie Locali',weather:'Meteo',showMore:'Ancora →'}
+};
+const COUNTRY_LANG={SA:'ar',EG:'ar',AE:'ar',MA:'ar',DZ:'ar',TN:'ar',IQ:'ar',JO:'ar',KW:'ar',QA:'ar',BH:'ar',OM:'ar',LB:'ar',LY:'ar',FR:'fr',BE:'fr',CH:'fr',CA:'fr',ES:'es',MX:'es',AR:'es',CO:'es',CL:'es',BR:'pt',DE:'de',RU:'ru',CN:'zh',JP:'ja',TR:'tr',IN:'hi',KR:'ko',NL:'nl',IT:'it',GB:'en',US:'en',AU:'en'};
+const FLAGS={en:'🇺🇸',ar:'🇸🇦',fr:'🇫🇷',es:'🇪🇸',de:'🇩🇪',pt:'🇧🇷',ru:'🇷🇺',zh:'🇨🇳',ja:'🇯🇵',tr:'🇹🇷',hi:'🇮🇳',ko:'🇰🇷',nl:'🇳🇱',it:'🇮🇹'};
+let curLang=localStorage.getItem('buzznow_lang')||'en',allArticles=[],curCat='all',refreshT=null,infPage=1;
+const REFRESH=5*60*1000,RSS2JSON='https://api.rss2json.com/v1/api.json?rss_url=';
+const PH=Array.from({length:20},(_,i)=>`https://picsum.photos/800/480?random=${i+1}`);
+const CC={world:'#00d4ff',politics:'#f43f5e',economy:'#f59e0b',technology:'#22c55e',science:'#a855f7',sports:'#f97316',entertainment:'#ec4899',health:'#10b981',crime:'#f43f5e',cinema:'#ec4899',gaming:'#22c55e',cartoons:'#f59e0b',inventions:'#a855f7',accidents:'#f97316',competitions:'#f59e0b',videos:'#f43f5e'};
+
+const SECTIONS=[
+  {id:'newsGrid',cat:'all',bar:'#00d4ff',icon:'📰',label:'latest'},
+  {id:'videoGrid',cat:['videos','entertainment'],bar:'#22c55e',icon:'📹',label:'videos'},
+  {id:'sportsGrid',cat:['sports','competitions'],bar:'#f97316',icon:'⚽',label:'sports'},
+  {id:'crimeGrid',cat:['crime','accidents'],bar:'#f43f5e',icon:'🚨',label:'crime'},
+  {id:'cinemaGrid',cat:['cinema','entertainment'],bar:'#ec4899',icon:'🎬',label:'cinema'},
+  {id:'gamingGrid',cat:['gaming','cartoons'],bar:'#22c55e',icon:'🎮',label:'gaming'},
+  {id:'sciGrid',cat:['inventions','science'],bar:'#a855f7',icon:'💡',label:'science'}
+];
+
+const FEEDS=[
+  {u:'https://rss.nytimes.com/services/xml/rss/nyt/World.xml',c:'world',b:'World'},{u:'https://feeds.bbci.co.uk/news/world/rss.xml',c:'world',b:'BBC'},{u:'https://www.aljazeera.com/xml/rss/all.xml',c:'world',b:'AlJazeera'},{u:'https://rss.cnn.com/rss/edition_world.rss',c:'world',b:'CNN'},{u:'https://feeds.reuters.com/reuters/topNews',c:'world',b:'Reuters'},{u:'https://feeds.skynews.com/feeds/rss/world.xml',c:'world',b:'Sky'},{u:'https://www.theguardian.com/world/rss',c:'world',b:'Guardian'},
+  {u:'https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml',c:'politics',b:'Politics'},{u:'https://feeds.bbci.co.uk/news/politics/rss.xml',c:'politics',b:'BBC Pol.'},{u:'https://rss.cnn.com/rss/edition.politics.rss',c:'politics',b:'CNN Pol.'},{u:'https://www.theguardian.com/politics/rss',c:'politics',b:'Guardian'},
+  {u:'https://rss.nytimes.com/services/xml/rss/nyt/Business.xml',c:'economy',b:'Economy'},{u:'https://feeds.bbci.co.uk/news/business/rss.xml',c:'economy',b:'BBC Biz'},{u:'https://rss.cnn.com/rss/money_news_economy.rss',c:'economy',b:'CNN'},{u:'https://feeds.marketwatch.com/marketwatch/topstories/',c:'economy',b:'MarketWatch'},
+  {u:'https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml',c:'technology',b:'Tech'},{u:'https://feeds.bbci.co.uk/news/technology/rss.xml',c:'technology',b:'BBC Tech'},{u:'https://www.theverge.com/rss/index.xml',c:'technology',b:'Verge'},{u:'https://www.engadget.com/rss.xml',c:'technology',b:'Engadget'},{u:'https://techcrunch.com/feed/',c:'technology',b:'TechCrunch'},
+  {u:'https://rss.nytimes.com/services/xml/rss/nyt/Sports.xml',c:'sports',b:'Sports'},{u:'https://feeds.bbci.co.uk/sport/rss.xml',c:'sports',b:'BBC Sport'},{u:'https://www.espn.com/espn/rss/news',c:'sports',b:'ESPN'},{u:'https://www.skysports.com/rss/12040',c:'sports',b:'Sky Sports'},{u:'https://www.theguardian.com/sport/rss',c:'sports',b:'Guardian'},{u:'https://www.fifa.com/rss/fifaplus/en/latest',c:'competitions',b:'FIFA'},
+  {u:'https://rss.nytimes.com/services/xml/rss/nyt/Crime.json',c:'crime',b:'Crime'},{u:'https://www.theguardian.com/uk/crime/rss',c:'crime',b:'Guardian'},
+  {u:'https://www.hollywoodreporter.com/feed/',c:'cinema',b:'Hollywood'},{u:'https://variety.com/feed/',c:'cinema',b:'Variety'},{u:'https://collider.com/feed/',c:'cinema',b:'Collider'},{u:'https://screenrant.com/feed/',c:'cinema',b:'Screen Rant'},{u:'https://www.rottentomatoes.com/feed/rss',c:'cinema',b:'Rotten T.'},
+  {u:'https://www.ign.com/rss/articles',c:'gaming',b:'IGN'},{u:'https://www.polygon.com/rss/index.xml',c:'gaming',b:'Polygon'},{u:'https://www.gamespot.com/feeds/mix/',c:'gaming',b:'GameSpot'},{u:'https://www.kotaku.com/rss',c:'gaming',b:'Kotaku'},{u:'https://www.pcgamer.com/rss/',c:'gaming',b:'PC Gamer'},
+  {u:'https://www.animenewsnetwork.com/feed/',c:'cartoons',b:'ANN'},{u:'https://www.crunchyroll.com/newsrss',c:'cartoons',b:'Crunchyroll'},
+  {u:'https://www.livescience.com/feeds/all',c:'inventions',b:'LiveScience'},{u:'https://www.sciencedaily.com/rss/all.xml',c:'inventions',b:'SciDaily'},{u:'https://newatlas.com/feed/',c:'inventions',b:'New Atlas'},{u:'https://www.gizmodo.com/rss',c:'inventions',b:'Gizmodo'},
+  {u:'https://rss.nytimes.com/services/xml/rss/nyt/Science.xml',c:'science',b:'Science'},
+  {u:'feeds.bbci.co.uk/news/health/rss.xml',c:'health',b:'BBC Health'},
+  {u:'https://www.theguardian.com/world/disasters/rss',c:'accidents',b:'Disasters'},
+  {u:'https://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml',c:'entertainment',b:'BBC Arts'},
+  {u:'https://www.youtube.com/feeds/videos.xml?chart=mostPopula',c:'videos',b:'YouTube'},{u:'https://rss.nytimes.com/services/xml/rss/nyt/MostPopular.xml',c:'videos',b:'Most Popular'}
+];
+
+// ── LANGUAGE ──
+async function detectIP(){try{const r=await fetch('https://ipapi.co/json/');const d=await r.json();if(d.country_code&&COUNTRY_LANG[d.country_code]){localStorage.setItem('buzznow_lang',COUNTRY_LANG[d.country_code])}}catch{}}
+
+function applyLang(l){
+  if(!I18N[l])l='en';curLang=l;localStorage.setItem('buzznow_lang',l);
+  const t=I18N[l],h=document.documentElement;h.setAttribute('lang',l);h.setAttribute('dir',t.dir||'ltr');h.setAttribute('data-lang',l);
+  document.querySelectorAll('[data-i18n]').forEach(e=>{const k=e.dataset.i18n;if(t[k])e.textContent=t[k]});
+  document.querySelectorAll('[data-i18n-ph]').forEach(e=>{const k=e.dataset.i18nPh;if(t[k])e.placeholder=t[k]});
+  document.getElementById('langBtn').textContent=t.label;
+  document.getElementById('hdrFlag').textContent=FLAGS[l]||'🌍';
+  buildLangDrop();buildSections();buildCats();if(allArticles.length)renderAll();
+}
+
+function buildLangDrop(){const d=document.getElementById('langDrop');d.innerHTML='';['en','ar','fr','es','de','pt','ru','zh','ja','tr','hi','ko','nl','it'].forEach(l=>{const o=document.createElement('div');o.className='flex items-center gap-2 px-2.5 py-1.5 rounded-md cursor-pointer text-xs text-gray-400 hover:bg-white/10 hover:text-gray-200 transition'+(l===curLang?' bg-neon text-white':'');o.innerHTML=`<span>${FLAGS[l]}</span>${I18N[l]?.en||l}`;o.onclick=()=>{applyLang(l);d.classList.add('opacity-0','invisible','-translate-y-1.5');d.classList.remove('opacity-100','visible','translate-y-0')};d.appendChild(o)})}
+function toggleLang(){const d=document.getElementById('langDrop');d.classList.toggle('opacity-0');d.classList.toggle('invisible');d.classList.toggle('-translate-y-1.5');d.classList.toggle('opacity-100');d.classList.toggle('visible');d.classList.toggle('translate-y-0')}
+document.addEventListener('click',e=>{if(!e.target.closest('.relative')){const d=document.getElementById('langDrop');d.classList.add('opacity-0','invisible','-translate-y-1.5');d.classList.remove('opacity-100','visible','translate-y-0')}});
+
+function buildSections(){const t=I18N[curLang],c=document.getElementById('sections');c.innerHTML='';SECTIONS.forEach(s=>{const title=Array.isArray(s.cat)?(t[s.label]||s.label):'';const w=document.createElement('div');w.innerHTML=`<div class="flex items-center gap-2 mt-6 mb-3"><div class="w-1 h-5 rounded-full" style="background:${s.bar}"></div>${s.icon} <span class="text-sm font-bold">${title}</span></div><div class="grid grid-cols-3 gap-3 max-[900px]:grid-cols-2 max-[600px]:grid-cols-1" id="${s.id}"></div>`;c.appendChild(w)})}
+
+function buildCats(){const t=I18N[curLang];const cats=[{c:'all',e:'★',l:t.latest},{c:'world',e:'🌍',l:'World'},{c:'politics',e:'🏛',l:'Politics'},{c:'economy',e:'💰',l:'Economy'},{c:'technology',e:'💻',l:'Tech'},{c:'sports',e:'⚽',l:'Sports'},{c:'crime',e:'🚨',l:'Crime'},{c:'cinema',e:'🎬',l:'Cinema'},{c:'gaming',e:'🎮',l:'Gaming'},{c:'inventions',e:'💡',l:'Science'},{c:'health',e:'🏥',l:'Health'}];
+document.getElementById('catTabs').innerHTML=cats.map(c=>`<span class="shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold border border-white/10 bg-white/5 text-gray-400 cursor-pointer hover:bg-neon/20 hover:text-neon hover:border-neon/30 transition${c.c==='all'?' bg-neon/20 text-neon border-neon/30':''}" data-cat="${c.c}">${c.e} ${c.l}</span>`).join('');
+document.querySelectorAll('[data-cat]').forEach(ch=>{ch.onclick=e=>{e.preventDefault();curCat=ch.dataset.cat;document.querySelectorAll('[data-cat]').forEach(x=>{const a=x.dataset.cat===curCat;x.classList.toggle('bg-neon/20',a);x.classList.toggle('text-neon',a);x.classList.toggle('border-neon/30',a);x.classList.toggle('text-gray-400',!a);x.classList.toggle('bg-white/5',!a)});infPage=1;renderAll()}})}
+
+// ── FETCH ──
+async function fetchFeed(f){try{const r=await fetch(RSS2JSON+encodeURIComponent(f.u));if(!r.ok)return[];const d=await r.json();if(d.status!=='ok'||!d.items)return[];return d.items.map(i=>({title:i.title,link:i.link,desc:i.description?i.description.replace(/<[^>]*>/g,'').slice(0,180):'',img:i.thumbnail||(i.enclosure&&i.enclosure.url)||PH[Math.floor(Math.random()*20)],source:i.author||f.b,date:new Date(i.pubDate),cat:f.c,badge:f.b}))}catch{return[]}}
+
+async function loadNews(){
+  SECTIONS.forEach(s=>{const g=document.getElementById(s.id);if(g)g.innerHTML=Array(3).fill('<div class="rounded-xl overflow-hidden border border-white/5 bg-cy2"><div class="h-40 shimmer"></div><div class="p-3 space-y-2"><div class="h-3 w-3/4 rounded shimmer"></div><div class="h-2.5 w-full rounded shimmer"></div></div></div>').join('')});
+  const br=document.getElementById('breakingRow');if(br)br.innerHTML=Array(3).fill('<div class="rounded-xl overflow-hidden border border-white/5 bg-cy2 h-48 shimmer"></div>').join('');
+  const res=await Promise.allSettled(FEEDS.map(f=>fetchFeed(f)));
+  allArticles=res.flatMap(r=>r.status==='fulfilled'?r.value:[]);allArticles.sort((a,b)=>b.date-a.date);
+  renderAll();setupInfinite();
+}
+
+function renderAll(){renderHero();renderBreaking();SECTIONS.forEach(s=>{const cats=Array.isArray(s.cat)?s.cat:['all'];const arts=cats[0]==='all'?allArticles:allArticles.filter(a=>cats.includes(a.cat));renderGrid(s.id,arts.slice(0,s.id==='newsGrid'?12:6))});renderTrending();renderTags();renderLocal()}
+function byCat(cs,n=6){return allArticles.filter(a=>cs.includes(a.cat)).slice(0,n)}
+
+function renderHero(){const a=allArticles[0];if(!a)return;document.getElementById('heroImg').src=a.img;document.getElementById('heroTitle').textContent=a.title;document.getElementById('heroDesc').textContent=a.desc;document.getElementById('heroSrc').textContent=a.source;document.getElementById('heroTime').textContent=ago(a.date);const b=document.getElementById('heroBadge');b.textContent=a.badge;b.style.background=CC[a.cat]||'#00d4ff';document.getElementById('heroCard').onclick=()=>window.open(a.link,'_blank')}
+
+function renderBreaking(){
+  const br=document.getElementById('breakingRow');if(!br)return;
+  const arts=allArticles.slice(1,4);br.innerHTML='';
+  arts.forEach((a,i)=>{const e=document.createElement('article');e.className='relative rounded-xl overflow-hidden h-48 cursor-pointer group fin';
+    e.style.animationDelay=i*100+'ms';
+    e.innerHTML=`<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="${a.img}" alt="" loading="lazy" onerror="this.src='https://picsum.photos/800/480?random=${Math.floor(Math.random()*50)}'"><div class="absolute inset-0 bg-gradient-to-t from-cy via-cy/40 to-transparent"></div><div class="absolute bottom-3 left-3 right-3"><div class="inline-flex px-2 py-0.5 rounded-full text-[9px] font-bold text-white mb-1.5" style="background:${CC[a.cat]||'#00d4ff'}">${a.badge}</div><h3 class="text-sm font-bold text-white leading-snug line-clamp-2 drop-shadow">${esc(a.title)}</h3><span class="text-[10px] text-white/40 mt-1 block">${esc(a.source)} · ${ago(a.date)}</span></div>`;
+    e.onclick=()=>window.open(a.link,'_blank');br.appendChild(e)});
+}
+
+function renderGrid(id,arts){
+  const g=document.getElementById(id);if(!g)return;g.innerHTML='';
+  const f=curCat==='all'?arts:arts.filter(a=>a.cat===curCat);
+  if(!f.length){g.innerHTML=`<p class="col-span-full text-center text-gray-500 py-8 text-sm">${I18N[curLang].noArt||'No articles.'}</p>`;return}
+  f.forEach((a,i)=>{const e=document.createElement('article');e.className='rounded-xl overflow-hidden border border-white/5 bg-cy2 cursor-pointer hover:-translate-y-1 hover:border-neon/20 hover:shadow-lg hover:shadow-neon/5 transition-all duration-300 fin group';
+    e.style.animationDelay=i*40+'ms';
+    e.innerHTML=`<div class="relative h-40 overflow-hidden bg-cy3"><img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="${a.img}" alt="" loading="lazy" onerror="this.src='https://picsum.photos/800/480?random=${Math.floor(Math.random()*50)}'"><div class="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[10px] font-bold text-white" style="background:${CC[a.cat]||'#00d4ff'}">${a.badge}</div></div><div class="p-3"><h3 class="text-sm font-bold leading-snug line-clamp-2 mb-1">${esc(a.title)}</h3><p class="text-xs text-gray-400 line-clamp-2 mb-2">${esc(a.desc)}</p><div class="flex justify-between text-[10px] text-gray-500"><span>${esc(a.source)}</span><span>${ago(a.date)}</span></div></div>`;
+    e.onclick=()=>window.open(a.link,'_blank');g.appendChild(e)});
+}
+
+function renderTrending(){const l=document.getElementById('trendList');const s=[...allArticles].sort(()=>Math.random()-.5).slice(0,8);
+  l.innerHTML=s.map((a,i)=>`<div class="px-4 py-2.5 cursor-pointer hover:bg-white/5 transition" onclick="window.open('${esc(a.link)}','_blank')"><div class="text-[10px] font-semibold mb-0.5" style="color:${CC[a.cat]||'#00d4ff'}">${a.cat.toUpperCase()}</div><div class="text-xs font-bold leading-snug line-clamp-2 mb-0.5">${esc(a.title)}</div><div class="text-[10px] text-gray-500">${esc(a.source)} · ${ago(a.date)}</div></div>`).join('')}
+
+function renderTags(){const cats={};allArticles.forEach(a=>{cats[a.cat]=(cats[a.cat]||0)+1});const sorted=Object.entries(cats).sort((a,b)=>b[1]-a[1]).slice(0,12);
+  document.getElementById('trendTags').innerHTML=sorted.map(([c,n])=>`<span class="px-2.5 py-1 rounded-full text-[10px] font-semibold border border-white/10 bg-white/5 text-gray-400 cursor-pointer hover:bg-neon/20 hover:text-neon hover:border-neon/30 transition" data-cat="${c}">${c} (${n})</span>`).join('');
+  document.querySelectorAll('#trendTags [data-cat]').forEach(t=>{t.onclick=()=>{curCat=t.dataset.cat;document.querySelectorAll('[data-cat]').forEach(x=>{const a=x.dataset.cat===curCat;x.classList.toggle('bg-neon/20',a);x.classList.toggle('text-neon',a);x.classList.toggle('border-neon/30',a);x.classList.toggle('text-gray-400',!a);x.classList.toggle('bg-white/5',!a)});infPage=1;renderAll()}})}
+
+function renderLocal(){const local=byCat(['world','politics'],10);const l=document.getElementById('localList');
+  l.innerHTML=local.map((a,i)=>`<div class="flex items-start gap-2.5 px-4 py-2.5 cursor-pointer hover:bg-white/5 transition border-b border-white/5" onclick="window.open('${esc(a.link)}','_blank')"><span class="text-base font-black min-w-[22px] font-display" style="color:${i<3?'#00d4ff':'#4a5568'}">${i+1}</span><div class="min-w-0"><h4 class="text-xs font-bold leading-snug line-clamp-2">${esc(a.title)}</h4><span class="text-[10px] text-gray-500">${esc(a.source)} · ${ago(a.date)}</span></div></div>`).join('')}
+
+// ── INFINITE SCROLL ──
+function setupInfinite(){const s=document.getElementById('sentinel');const obs=new IntersectionObserver(es=>{if(es[0].isIntersecting)loadMore()},{threshold:.1});obs.observe(s)}
+function loadMore(){const start=infPage*12;if(start>=allArticles.length)return;infPage++;const g=document.getElementById('newsGrid');if(!g)return;allArticles.slice(start,start+12).forEach((a,i)=>{const e=document.createElement('article');e.className='rounded-xl overflow-hidden border border-white/5 bg-cy2 cursor-pointer hover:-translate-y-1 hover:border-neon/20 transition-all duration-300 fin group';e.style.animationDelay=i*40+'ms';
+  e.innerHTML=`<div class="relative h-40 overflow-hidden bg-cy3"><img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="${a.img}" alt="" loading="lazy" onerror="this.src='https://picsum.photos/800/480?random=${Math.floor(Math.random()*50)}'"><div class="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[10px] font-bold text-white" style="background:${CC[a.cat]||'#00d4ff'}">${a.badge}</div></div><div class="p-3"><h3 class="text-sm font-bold leading-snug line-clamp-2 mb-1">${esc(a.title)}</h3><p class="text-xs text-gray-400 line-clamp-2 mb-2">${esc(a.desc)}</p><div class="flex justify-between text-[10px] text-gray-500"><span>${esc(a.source)}</span><span>${ago(a.date)}</span></div></div>`;
+  e.onclick=()=>window.open(a.link,'_blank');g.appendChild(e)})}
+
+// ── WEATHER + SUNRISE/SUNSET ──
+async function loadWeather(){const sc=document.getElementById('wsScroll'),sun=document.getElementById('wsSun');try{const pos=await new Promise((r,j)=>navigator.geolocation.getCurrentPosition(r,j,{timeout:5000}));const{latitude:lat,longitude:lon}=pos.coords;const r=await fetch(`https://wttr.in/${lat},${lon}?format=j1`);const d=await r.json();const c=d.current_condition[0];const city=d.nearest_area[0]?.areaName[0]?.value||'?';const country=d.nearest_area[0]?.country[0]?.value||'';document.getElementById('wsCity').textContent=`${getFlag(country)} ${city}`;
+  const astro=d.weather?.[0]?.astronomy?.[0];
+  if(astro){sun.innerHTML=`<span title="Sunrise">🌅 ${astro.sunrise}</span><span title="Sunset">🌇 ${astro.sunset}</span>`}
+  const fc=d.weather||[];
+  sc.innerHTML=`<div class="flex items-center gap-1.5 shrink-0"><span>${wEmoji(c.weatherCode)}</span><span class="font-bold text-white">${c.temp_C}°C</span><span>${c.weatherDesc[0].value}</span></div>`+fc.slice(0,3).map(day=>`<div class="flex items-center gap-1.5 shrink-0"><span>${wEmoji(parseInt(day.hourly?.[4]?.weatherCode||0))}</span><span class="font-bold text-white">${day.avgtempC}°</span><span>${day.date}</span></div>`).join('')+`<div class="flex items-center gap-1.5 shrink-0 text-neon/60"><span>💧 ${c.humidity}%</span></div><div class="flex items-center gap-1.5 shrink-0 text-neon/60"><span>💨 ${c.windspeedKmph}km/h</span></div><div class="flex items-center gap-1.5 shrink-0 text-neon/60"><span>👁 ${c.visibility}km</span></div>`}catch{sc.innerHTML='<div class="shrink-0 text-gray-500">📍 Enable location for weather</div>'}}
+function wEmoji(c){if(c<=113)return'☀️';if(c<=119)return'⛅';if(c<=122)return'☁️';if(c<=179)return'🌨';if(c<=299)return'🌧';if(c<=359)return'⛈';if(c<=395)return'❄️';return'🌤'}
+function getFlag(co){const m={'United States of America':'🇺🇸','United Kingdom':'🇬🇧','France':'🇫🇷','Germany':'🇩🇪','Japan':'🇯🇵','China':'🇨🇳','India':'🇮🇳','Brazil':'🇧🇷','Canada':'🇨🇦','Australia':'🇦🇺','Italy':'🇮🇹','Spain':'🇪🇸','Mexico':'🇲🇽','South Korea':'🇰🇷','Russia':'🇷🇺','Turkey':'🇹🇷','Saudi Arabia':'🇸🇦','Egypt':'🇪🇬','UAE':'🇦🇪','Morocco':'🇲🇦','Algeria':'🇩🇿','Tunisia':'🇹🇳','Iraq':'🇮🇶','Jordan':'🇯🇴','Kuwait':'🇰🇼','Qatar':'🇶🇦','Pakistan':'🇵🇰','Indonesia':'🇮🇩','Netherlands':'🇳🇱','Belgium':'🇧🇪','Sweden':'🇸🇪','Norway':'🇳🇴','Switzerland':'🇨🇭','Poland':'🇵🇱','Portugal':'🇵🇹','Greece':'🇬🇷','Thailand':'🇹🇭','Vietnam':'🇻🇳','Israel':'🇮🇱','Palestine':'🇵🇸','Colombia':'🇨🇴','Argentina':'🇦🇷','Chile':'🇨🇱'};return m[co]||'🌍'}
+
+// ── VISITOR ──
+async function initVisitor(){try{const r=await fetch('https://ipapi.co/json/');const d=await r.json();document.getElementById('hdrFlag').textContent=getFlag(d.country_name);document.getElementById('localFlag').textContent=getFlag(d.country_name);document.getElementById('localCountry').textContent=`${d.country_name} (${d.country_code})`}catch{document.getElementById('localCountry').textContent='Global'}}
+
+// ── REFRESH ──
+function startAuto(){refreshT=setTimeout(async()=>{const b=document.getElementById('refreshBtn');b.classList.add('spin');await loadNews();b.classList.remove('spin');startAuto()},REFRESH)}
+async function manualRefresh(){const b=document.getElementById('refreshBtn');b.classList.add('spin');clearTimeout(refreshT);await loadNews();b.classList.remove('spin');startAuto()}
+
+// ── SEARCH ──
+document.getElementById('searchInput').addEventListener('input',e=>{const q=e.target.value.toLowerCase().trim();if(!q){renderGrid('newsGrid',allArticles.slice(0,12));return}const f=allArticles.filter(a=>(a.title+' '+a.desc+' '+a.source).toLowerCase().includes(q));renderGrid('newsGrid',f.slice(0,12))});
+
+// ── CLOCK ──
+setInterval(()=>{document.getElementById('clock').textContent=new Date().toLocaleTimeString()},1000);
+
+// ── THEME ──
+function toggleTheme(){const h=document.documentElement;const L=h.style.background==='rgb(245, 245, 250)';if(L){h.style.cssText='';document.body.style.cssText='';document.getElementById('themeBtn').textContent='🌙'}else{h.style.background='#f5f5fa';h.style.color='#1a1a2e';document.body.style.cssText='background:#f5f5fa;color:#1a1a2e';document.getElementById('themeBtn').textContent='☀️'}}
+
+// ── HELPERS ──
+function ago(d){const t=I18N[curLang];const s=Math.floor((Date.now()-d.getTime())/1000);if(s<60)return t.justNow||'now';if(s<3600)return Math.floor(s/60)+(t.m||'m');if(s<86400)return Math.floor(s/3600)+(t.h||'h');return Math.floor(s/86400)+(t.d||'d')}
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+
+// ── INIT (PARALLEL) ──
+Promise.all([detectIP().then(()=>{const saved=localStorage.getItem('buzznow_lang');if(saved&&I18N[saved])curLang=saved;applyLang(curLang)}),loadNews().then(()=>startAuto()),loadWeather(),initVisitor()]);
+</script>
+</body>
+</html>
