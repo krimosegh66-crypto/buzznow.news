@@ -172,15 +172,59 @@ html[data-lang="ar"] body{font-family:'Noto Sans Arabic','Inter',sans-serif}
 <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-20 right-5 z-40 w-11 h-11 rounded-xl bg-gradient-to-br from-neon to-neon2 text-white flex items-center justify-center shadow-lg shadow-neon/30 opacity-0 invisible translate-y-4 transition-all duration-300 hover:scale-110 hover:shadow-neon/50 max-[1100px]:bottom-16">↑</button>
 
 <!-- ═══ FOOTER ═══ -->
-<footer class="bg-cy2 border-t border-white/5 mt-8">
+<footer class="relative mt-8">
   <div class="cyber-line"></div>
-  <div class="max-w-[1440px] mx-auto px-5 py-10 grid grid-cols-[2fr_1fr_1fr_1fr] gap-8 max-[768px]:grid-cols-2">
-    <div><div class="flex items-center gap-2 mb-3"><div class="w-8 h-8 bg-gradient-to-br from-neon to-neon2 rounded-lg flex items-center justify-center text-white font-black text-xs">B</div><span class="font-display text-xl font-black text-white">Buzz<span class="gradient-text">Now</span></span></div><p class="text-gray-400 text-xs max-w-[280px] leading-relaxed" data-i18n="footerDesc">Your pulse on world events.</p></div>
-    <div><h4 class="text-xs font-bold mb-3 text-white/60" data-i18n="news">News</h4><a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">World</a><a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">Politics</a><a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">Economy</a><a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">Tech</a></div>
-    <div><h4 class="text-xs font-bold mb-3 text-white/60" data-i18n="entertainment">Entertainment</h4><a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">Cinema</a><a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">Gaming</a><a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">Animation</a><a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">Sports</a></div>
-    <div><h4 class="text-xs font-bold mb-3 text-white/60" data-i18n="more">More</h4><a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">Crime</a><a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">Science</a><a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">Health</a><a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">Inventions</a></div>
+  <div class="hero-grad border-t border-white/5">
+    <!-- Top CTA -->
+    <div class="max-w-[1440px] mx-auto px-5 py-8 text-center border-b border-white/5">
+      <div class="inline-flex items-center gap-2 mb-3"><div class="w-10 h-10 bg-gradient-to-br from-neon to-neon2 rounded-xl flex items-center justify-center text-white font-black text-sm shadow-lg shadow-neon/25">B</div><span class="font-display text-2xl font-black text-white">Buzz<span class="gradient-text">Now</span></span></div>
+      <p class="text-gray-400 text-sm max-w-md mx-auto mb-4" data-i18n="footerDesc">Your pulse on world events. Real-time news, trends, and weather — no borders.</p>
+      <div class="flex items-center justify-center gap-3">
+        <a href="https://github.com/krimosegh66-crypto/buzznow.news" target="_blank" class="px-4 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-neon to-neon2 text-white hover:shadow-lg hover:shadow-neon/30 transition-all">⭐ Star on GitHub</a>
+        <button onclick="window.scrollTo({top:0,behavior:'smooth'})" class="px-4 py-2 rounded-xl text-xs font-semibold border border-white/10 bg-white/5 text-gray-400 hover:border-neon/50 hover:text-neon transition-all">↑ Back to Top</button>
+      </div>
+    </div>
+    <!-- Links Grid -->
+    <div class="max-w-[1440px] mx-auto px-5 py-8 grid grid-cols-2 sm:grid-cols-4 gap-6">
+      <div>
+        <h4 class="text-xs font-bold mb-3 text-white/60 uppercase tracking-wider" data-i18n="news">News</h4>
+        <a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">🌍 World</a>
+        <a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">🏛 Politics</a>
+        <a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">💰 Economy</a>
+        <a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">💻 Tech</a>
+      </div>
+      <div>
+        <h4 class="text-xs font-bold mb-3 text-white/60 uppercase tracking-wider" data-i18n="entertainment">Entertainment</h4>
+        <a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">🎬 Cinema</a>
+        <a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">🎮 Gaming</a>
+        <a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">📹 Videos</a>
+        <a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">⚽ Sports</a>
+      </div>
+      <div>
+        <h4 class="text-xs font-bold mb-3 text-white/60 uppercase tracking-wider" data-i18n="more">More</h4>
+        <a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">🚨 Crime</a>
+        <a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">💡 Science</a>
+        <a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">🏥 Health</a>
+        <a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">🔬 Inventions</a>
+      </div>
+      <div>
+        <h4 class="text-xs font-bold mb-3 text-white/60 uppercase tracking-wider">Connect</h4>
+        <a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">📰 RSS Feeds</a>
+        <a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">💬 Contact</a>
+        <a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">🔒 Privacy</a>
+        <a href="#" class="block text-xs text-gray-500 py-1 hover:text-neon transition">📋 Terms</a>
+      </div>
+    </div>
+    <!-- Bottom Bar -->
+    <div class="max-w-[1440px] mx-auto px-5 py-4 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <span class="text-xs text-gray-600">&copy; 2026 BuzzNow. <span data-i18n="rights">All rights reserved.</span></span>
+      <div class="flex items-center gap-4 text-[10px] text-gray-600">
+        <span>Made with ❤️ for global news</span>
+        <span class="w-1 h-1 bg-neon rounded-full"></span>
+        <span id="footerClock" class="tabular-nums">--:--</span>
+      </div>
+    </div>
   </div>
-  <div class="max-w-[1440px] mx-auto px-5 py-4 border-t border-white/5 text-center text-xs text-gray-600">&copy; 2026 BuzzNow. <span data-i18n="rights">All rights reserved.</span></div>
 </footer>
 
 <nav class="fixed bottom-0 inset-x-0 bg-cy/95 border-t border-white/5 backdrop-blur-xl z-50 hidden max-[1100px]:flex justify-around py-2">
@@ -418,7 +462,7 @@ async function manualRefresh(){const b=document.getElementById('refreshBtn');b.c
 document.getElementById('searchInput').addEventListener('input',e=>{const q=e.target.value.toLowerCase().trim();if(!q){renderGrid('newsGrid',allArticles.slice(0,12));return}const f=allArticles.filter(a=>(a.title+' '+a.desc+' '+a.source).toLowerCase().includes(q));renderGrid('newsGrid',f.slice(0,12))});
 
 /* ═══ CLOCK ═══ */
-setInterval(()=>{document.getElementById('clock').textContent=new Date().toLocaleTimeString()},1000);
+setInterval(()=>{const t=new Date().toLocaleTimeString();document.getElementById('clock').textContent=t;const fc=document.getElementById('footerClock');if(fc)fc.textContent=t},1000);
 
 /* ═══ THEME ═══ */
 function toggleTheme(){const h=document.documentElement;const b=document.body;const isLight=h.classList.contains('light-theme');if(isLight){h.classList.remove('light-theme');b.style.cssText='';h.style.cssText='';document.getElementById('themeBtn').textContent='🌙'}else{h.classList.add('light-theme');b.style.cssText='background:#f5f5fa;color:#1a1a2e';document.getElementById('themeBtn').textContent='☀️'}}
