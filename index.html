@@ -5,6 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title id="pageTitle">BuzzNow - نبض العالم بلحظته</title>
   <meta name="description" id="pageDesc" content="أحدث الترندات العالمية في نصوص، فيديو، مسموع وصور مع تجربة غامرة.">
+  <meta name="keywords" content="أخبار عالمية,سياسة,اقتصاد,تكنولوجيا,علوم,رياضة,ترفيه,buzznow,global news,politics,technology">
+  <meta name="author" content="BuzzNow">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#0a0a12">
+  <link rel="canonical" href="https://krimosegh66-crypto.github.io/buzznow.news/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="BuzzNow">
+  <meta property="og:title" content="BuzzNow - نبض العالم بلحظته">
+  <meta property="og:description" content="أخبار عالمية لحظية: سياسة، اقتصاد، تكنولوجيا، علوم، رياضة وترفيه.">
+  <meta property="og:url" content="https://krimosegh66-crypto.github.io/buzznow.news/">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&q=80">
+  <meta property="og:locale" content="ar_SA">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="fr_FR">
+  <meta property="og:locale:alternate" content="es_ES">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BuzzNow - نبض العالم بلحظته">
+  <meta name="twitter:description" content="أخبار عالمية لحظية مع طقس وطقس محلي.">
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&q=80">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebSite","name":"BuzzNow","url":"https://krimosegh66-crypto.github.io/buzznow.news/","description":"Real-time global news, trends and weather","inLanguage":["ar","en","fr","es"],"potentialAction":{"@type":"SearchAction","target":"https://krimosegh66-crypto.github.io/buzznow.news/?q={search_term_string}","query-input":"required name=search_term_string"}}
+  </script>
   
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -366,6 +388,146 @@
       border-color: #818cf8;
     }
 
+    /* === Search Box === */
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: #1a1a2a;
+      border: 1px solid #26263a;
+      border-radius: 30px;
+      padding: 0.3rem 0.4rem 0.3rem 0.9rem;
+      transition: border-color 0.2s;
+    }
+    .search-box:focus-within {
+      border-color: #818cf8;
+    }
+    .search-box input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #f0f0f5;
+      font-family: inherit;
+      font-size: 0.8rem;
+      width: 130px;
+    }
+    .search-box input::placeholder { color: #6b7280; }
+    .search-box button {
+      background: #2a2a40;
+      border: none;
+      color: #9ca3af;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .search-box button:hover { color: #f0f0f5; }
+    body.light-mode .search-box {
+      background: #ffffff;
+      border-color: #e2e8f0;
+    }
+    body.light-mode .search-box input { color: #1a1a2e; }
+    body.light-mode .search-box button { background: #f1f5f9; color: #4a5568; }
+
+    /* === Weather Widget === */
+    .weather-card {
+      background: #14141f;
+      border: 1px solid #26263a;
+      border-radius: 18px;
+      padding: 1.4rem;
+      margin-bottom: 1.8rem;
+    }
+    .weather-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8rem;
+    }
+    .weather-head h3 { font-size: 0.95rem; }
+    .weather-now {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.8rem;
+    }
+    .weather-icon { font-size: 2.2rem; }
+    .weather-temp { font-size: 1.6rem; font-weight: 800; }
+    .weather-loc { color: #9ca3af; font-size: 0.75rem; }
+    .weather-days {
+      display: flex;
+      gap: 0.5rem;
+      border-top: 1px solid #26263a;
+      padding-top: 0.8rem;
+    }
+    .weather-day {
+      flex: 1;
+      text-align: center;
+      font-size: 0.7rem;
+      color: #9ca3af;
+    }
+    .weather-day .d-temp { color: #f0f0f5; font-weight: 700; margin-top: 0.2rem; }
+    body.light-mode .weather-card {
+      background: #ffffff;
+      border-color: #e2e8f0;
+    }
+    body.light-mode .weather-day .d-temp { color: #1a1a2e; }
+
+    /* === Local News === */
+    .local-card {
+      background: #14141f;
+      border: 1px solid #26263a;
+      border-radius: 18px;
+      padding: 1.4rem;
+      margin-bottom: 1.8rem;
+    }
+    .local-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #22223a;
+      cursor: pointer;
+      font-size: 0.82rem;
+      color: #c8c8d4;
+      line-height: 1.4;
+    }
+    .local-item:last-child { border-bottom: none; }
+    .local-item:hover { color: #818cf8; }
+    body.light-mode .local-card { background: #ffffff; border-color: #e2e8f0; }
+    body.light-mode .local-item { color: #4a5568; border-bottom-color: #e2e8f0; }
+    body.light-mode .local-item:hover { color: #6366f1; }
+
+    /* === Category Tabs === */
+    .category-bar {
+      display: flex;
+      gap: 0.4rem;
+      overflow-x: auto;
+      margin-bottom: 1.8rem;
+      padding-bottom: 0.2rem;
+      border-bottom: 1px solid #26263a;
+    }
+    .cat-btn {
+      background: transparent;
+      border: 1px solid #26263a;
+      color: #9ca3af;
+      padding: 0.45rem 1rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .cat-btn:hover { color: #f0f0f5; border-color: #818cf8; }
+    .cat-btn.active { background: #818cf8; color: #0a0a12; border-color: #818cf8; }
+    body.light-mode .cat-btn { border-color: #e2e8f0; color: #4a5568; }
+    body.light-mode .cat-btn.active { background: #6366f1; color: #fff; }
+    
     /* === Main Layout === */
     .main-layout {
       max-width: 1440px;
@@ -859,6 +1021,14 @@
         width: 100%;
         justify-content: center;
       }
+      .search-box {
+        order: 4;
+        width: 100%;
+        margin-top: 0.4rem;
+      }
+      .search-box input {
+        width: 100%;
+      }
     }
 
     @media (max-width: 600px) {
@@ -900,6 +1070,10 @@
       <a onclick="switchTab('photo')" data-key="navPhoto">صور</a>
     </nav>
     <div style="display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap;">
+      <div class="search-box">
+        <input type="search" id="searchInput" placeholder="🔍 ابحث عن الأخبار..." oninput="onSearch(this.value)">
+        <button id="searchClear" title="مسح" onclick="clearSearch()">✕</button>
+      </div>
       <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
         <i class="fas fa-moon" id="themeIcon"></i>
         <span id="themeLabel">داكن</span>
@@ -910,7 +1084,8 @@
         <button class="lang-btn" onclick="changeLanguage('fr')">🇫🇷 Fr</button>
         <button class="lang-btn" onclick="changeLanguage('es')">🇪🇸 Es</button>
       </div>
-      <div class="visitor-badge" id="visitorBadge">
+      <div class="visitor-badge" id="visitorBadge" title="عدد الزوار">
+        <span id="visitorCountry" style="display:inline-flex;align-items:center;gap:0.25rem;">🌍</span>
         <span>👁️</span>
         <span class="count" id="visitorCount">0</span>
       </div>
@@ -961,6 +1136,18 @@
         <div id="adLabel">مساحة إعلانية - 728×90 أو responsive</div>
       </div>
 
+      <!-- Category Bar -->
+      <div class="category-bar" id="categoryBar">
+        <button class="cat-btn active" data-cat="all" onclick="selectCategory('all', this)">🔥 الكل</button>
+        <button class="cat-btn" data-cat="politics" onclick="selectCategory('politics', this)">🏛 سياسة</button>
+        <button class="cat-btn" data-cat="economy" onclick="selectCategory('economy', this)">💰 اقتصاد</button>
+        <button class="cat-btn" data-cat="technology" onclick="selectCategory('technology', this)">💻 تكنولوجيا</button>
+        <button class="cat-btn" data-cat="science" onclick="selectCategory('science', this)">🔬 علوم</button>
+        <button class="cat-btn" data-cat="entertainment" onclick="selectCategory('entertainment', this)">🎬 ترفيه</button>
+        <button class="cat-btn" data-cat="sports" onclick="selectCategory('sports', this)">⚽ رياضة</button>
+        <button class="cat-btn" data-cat="world" onclick="selectCategory('world', this)">🌍 عالم</button>
+      </div>
+
       <!-- Tabs -->
       <div class="tabs-bar" id="tabsBar">
         <button class="tab-btn active" onclick="filterContent('all', this)" data-key="tabAll">🔥 الكل</button>
@@ -982,6 +1169,30 @@
 
     <!-- Sidebar -->
     <aside class="sidebar">
+      <!-- Weather -->
+      <div class="weather-card">
+        <div class="weather-head">
+          <h3 id="weatherTitle">🌤️ الطقس</h3>
+          <span class="weather-loc" id="weatherLoc">...</span>
+        </div>
+        <div class="weather-now">
+          <div class="weather-icon" id="weatherIcon">⏳</div>
+          <div>
+            <div class="weather-temp" id="weatherTemp">--°</div>
+            <div class="weather-loc" id="weatherCondition">...</div>
+          </div>
+        </div>
+        <div class="weather-days" id="weatherDays"></div>
+      </div>
+
+      <!-- Local News -->
+      <div class="local-card">
+        <h3 style="font-size: 1rem; margin-bottom: 0.8rem;" id="localTitle">📍 أخبار محلية</h3>
+        <div id="localList">
+          <div style="color:#9ca3af;font-size:0.8rem;">جاري تحديد موقعك...</div>
+        </div>
+      </div>
+
       <div class="ad-unit">
         <label>إعلان AdSense</label>
         <div>مساحة إعلانية - 300×600</div>
@@ -1464,34 +1675,243 @@
     setInterval(animateCounter, 4000);
 
     // ============================================================
-    // 10. GEOLOCATION (ipapi.co)
+    // 10. GEOLOCATION (ipapi.co) + visitor flag/country, local news, weather
     // ============================================================
+    const FLAGS = {US:'🇺🇸',GB:'🇬🇧',FR:'🇫🇷',DE:'🇩🇪',ES:'🇪🇸',IT:'🇮🇹',PT:'🇵🇹',BR:'🇧🇷',SA:'🇸🇦',AE:'🇦🇪',EG:'🇪🇬',MA:'🇲🇦',DZ:'🇩🇿',TN:'🇹🇳',JP:'🇯🇵',CN:'🇨🇳',IN:'🇮🇳',KR:'🇰🇷',RU:'🇷🇺',TR:'🇹🇷',AU:'🇦🇺',CA:'🇨🇦',MX:'🇲🇽',AR:'🇦🇷',CO:'🇨🇴',CL:'🇨🇱',PE:'🇵🇪',NL:'🇳🇱',BE:'🇧🇪',CH:'🇨🇭',SE:'🇸🇪',NO:'🇳🇴',PL:'🇵🇱',GR:'🇬🇷',NG:'🇳🇬',KE:'🇰🇪',ZA:'🇿🇦',IL:'🇮🇱',SG:'🇸🇬',NZ:'🇳🇿',IE:'🇮🇪',TH:'🇹🇭',ID:'🇮🇩',PK:'🇵🇰'};
+    const IP_LANG_MAP = {SA:'ar',AE:'ar',EG:'ar',MA:'ar',DZ:'ar',TN:'ar',IQ:'ar',JO:'ar',KW:'ar',QA:'ar',BH:'ar',OM:'ar',LB:'ar',LY:'ar',SD:'ar',SY:'ar',YE:'ar',FR:'fr',BE:'fr',CA:'fr',LU:'fr',SN:'fr',ML:'fr',CM:'fr',CI:'fr',ES:'es',MX:'es',AR:'es',CO:'es',CL:'es',PE:'es',VE:'es',EC:'es',BO:'es',PY:'es',UY:'es',PA:'es',CR:'es',DO:'es',BR:'pt',AO:'pt',MZ:'pt',DE:'de',AT:'de',IT:'it'};
+
+    let userCountry = '';
+    let userCountryName = 'العالم';
+    let userFlag = '🌍';
+    let userLat = 0, userLon = 0;
+
     async function detectLocation() {
       try {
         const res = await fetch('https://ipapi.co/json/');
         const data = await res.json();
-        const lang = data.language || 'ar';
+        const cc = (data.country_code || '').toUpperCase();
         const country = data.country_name || 'العالم';
-        console.log(`🌍 المستخدم من: ${country}, اللغة: ${lang}`);
-        
-        const supportedLangs = ['ar', 'en', 'fr', 'es'];
-        const detectedLang = supportedLangs.includes(lang) ? lang : 'ar';
-        if (detectedLang !== currentLang) {
-          changeLanguage(detectedLang);
+        userCountry = cc;
+        userCountryName = country;
+        userFlag = FLAGS[cc] || '🌍';
+        userLat = parseFloat(data.latitude) || 0;
+        userLon = parseFloat(data.longitude) || 0;
+        console.log(`🌍 المستخدم من: ${country}, اللغة: ${data.language}`);
+
+        const visitorCountry = document.getElementById('visitorCountry');
+        if (visitorCountry) visitorCountry.textContent = userFlag + ' ' + country;
+
+        // language detection by IP
+        if (cc && IP_LANG_MAP[cc] && IP_LANG_MAP[cc] !== currentLang) {
+          changeLanguage(IP_LANG_MAP[cc]);
         }
+
+        loadWeather();
+        loadLocalNews(country);
       } catch (e) {
         console.log('Geolocation غير متاحة');
       }
     }
+
+    // Weather (Open-Meteo, no API key)
+    async function loadWeather() {
+      const title = document.getElementById('weatherTitle');
+      if (!title) return;
+      const loc = document.getElementById('weatherLoc');
+      title.textContent = '🌤️ الطقس';
+      if (!userLat || !userLon) {
+        loc.textContent = 'العالم';
+        return;
+      }
+      try {
+        const url = 'https://api.open-meteo.com/v1/forecast?latitude=' + userLat + '&longitude=' + userLon +
+          '&current_weather=true&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=3';
+        const r = await fetch(url);
+        const d = await r.json();
+        if (!d || !d.current_weather) throw 0;
+        const cur = d.current_weather;
+        const days = d.daily;
+        const codes = {0:'☀️',1:'🌤',2:'⛅',3:'☁️',45:'🌫',48:'🌫',51:'🌦',61:'🌧',63:'🌧',65:'🌧',71:'🌨',80:'🌧',95:'⛈'};
+        const condNames = {0:'صافي',1:'غائم جزئياً',2:'غائم جزئياً',3:'غائم',45:'ضباب',61:'مطر',63:'مطر',65:'مطر',71:'ثلج',80:'زخات',95:'عاصفة'};
+        document.getElementById('weatherIcon').textContent = codes[cur.weathercode] || '🌡';
+        document.getElementById('weatherTemp').textContent = Math.round(cur.temperature) + '°C';
+        document.getElementById('weatherCondition').textContent = (condNames[cur.weathercode] || '') + ' · ' + Math.round(cur.windspeed) + ' km/h';
+        loc.textContent = userFlag + ' ' + userCountryName;
+        let daysHTML = '';
+        for (let i = 0; i < 3; i++) {
+          const dt = new Date(Date.now() + i * 86400000);
+          const wd = dt.toLocaleDateString(currentLang === 'ar' ? 'ar-EG' : currentLang, { weekday: 'short' });
+          daysHTML += '<div class="weather-day"><div>' + (i === 0 ? 'اليوم' : wd) + '</div><div>' + (codes[days.weathercode[i]] || '☁️') +
+            '</div><div class="d-temp">' + Math.round(days.temperature_2m_max[i]) + '°/' + Math.round(days.temperature_2m_min[i]) + '°</div></div>';
+        }
+        document.getElementById('weatherDays').innerHTML = daysHTML;
+      } catch (e) {
+        document.getElementById('weatherIcon').textContent = '🌡';
+        document.getElementById('weatherTemp').textContent = '--';
+      }
+    }
+
+    // Local news by country (use trending feeds filtered to country name)
+    async function loadLocalNews(country) {
+      const listEl = document.getElementById('localList');
+      if (!listEl) return;
+      document.getElementById('localTitle').textContent = '📍 أخبار ' + (country && country !== 'العالم' ? country : 'محلية');
+      try {
+        const feeds = [
+          'https://rss.nytimes.com/services/xml/rss/nyt/World.xml',
+          'https://feeds.bbci.co.uk/news/world/rss.xml',
+          'https://rss.cnn.com/rss/edition_world.rss'
+        ];
+        const results = await Promise.allSettled(feeds.map(f =>
+          fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(f)).then(r => r.json()).catch(() => ({}))
+        ));
+        let items = [];
+        results.forEach(r => { if (r.status === 'fulfilled' && r.value.items) items = items.concat(r.value.items); });
+        items = items.filter(i => i.title);
+        if (!items.length) { listEl.innerHTML = '<div style="color:#9ca3af;font-size:0.8rem;">لا توجد أخبار محلية متاحة حالياً.</div>'; return; }
+        listEl.innerHTML = items.slice(0, 6).map((it, i) =>
+          '<a class="local-item" href="' + (it.link || '#') + '" target="_blank" rel="noopener"><span>#' + (i + 1) + '</span><span>' + it.title + '</span></a>'
+        ).join('');
+      } catch (e) {
+        listEl.innerHTML = '<div style="color:#9ca3af;font-size:0.8rem;">لا توجد أخبار محلية متاحة حالياً.</div>';
+      }
+    }
+
+    // ============================================================
+    // 11. REAL NEWS FEEDS BY CATEGORY
+    // ============================================================
+    const NEWS_FEEDS = [
+      {u:'https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml', c:'politics'},
+      {u:'https://feeds.bbci.co.uk/news/politics/rss.xml', c:'politics'},
+      {u:'https://rss.nytimes.com/services/xml/rss/nyt/Business.xml', c:'economy'},
+      {u:'https://feeds.bbci.co.uk/news/business/rss.xml', c:'economy'},
+      {u:'https://rss.cnn.com/rss/money_news_economy.rss', c:'economy'},
+      {u:'https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml', c:'technology'},
+      {u:'https://feeds.bbci.co.uk/news/technology/rss.xml', c:'technology'},
+      {u:'https://www.theverge.com/rss/index.xml', c:'technology'},
+      {u:'https://rss.nytimes.com/services/xml/rss/nyt/Science.xml', c:'science'},
+      {u:'https://www.sciencedaily.com/rss/all.xml', c:'science'},
+      {u:'https://rss.nytimes.com/services/xml/rss/nyt/Movies.xml', c:'entertainment'},
+      {u:'https://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml', c:'entertainment'},
+      {u:'https://feeds.bbci.co.uk/sport/rss.xml', c:'sports'},
+      {u:'https://www.espn.com/espn/rss/news', c:'sports'},
+      {u:'https://rss.nytimes.com/services/xml/rss/nyt/World.xml', c:'world'},
+      {u:'https://feeds.bbci.co.uk/news/world/rss.xml', c:'world'}
+    ];
+    const CAT_EMOJI = {politics:'🏛',economy:'💰',technology:'💻',science:'🔬',entertainment:'🎬',sports:'⚽',world:'🌍'};
+    const CAT_NAMES = {politics:'سياسة',economy:'اقتصاد',technology:'تكنولوجيا',science:'علوم',entertainment:'ترفيه',sports:'رياضة',world:'عالَم'};
+    let newsArticles = [];
+    let activeCat = 'all';
+
+    function timeAgo(iso) {
+      if (!iso) return '';
+      const d = new Date(iso);
+      if (isNaN(d)) return '';
+      const s = (Date.now() - d.getTime()) / 1000;
+      if (s < 60) return (currentLang === 'ar' ? 'الآن' : currentLang === 'fr' ? 'à l\'instant' : currentLang === 'es' ? 'ahora' : 'just now');
+      if (s < 3600) return (currentLang === 'ar' ? 'منذ ' + Math.floor(s / 60) + ' د' : currentLang === 'fr' ? 'il y a ' + Math.floor(s / 60) + 'm' : currentLang === 'es' ? 'hace ' + Math.floor(s / 60) + 'm' : Math.floor(s / 60) + 'm ago');
+      if (s < 86400) return (currentLang === 'ar' ? 'منذ ' + Math.floor(s / 3600) + ' س' : Math.floor(s / 3600) + 'h ago');
+      return (currentLang === 'ar' ? 'منذ ' + Math.floor(s / 86400) + ' ي' : Math.floor(s / 86400) + 'd ago');
+    }
+
+    async function loadRealNews() {
+      const grid = document.getElementById('contentGrid');
+      grid.innerHTML = '<div class="loader"><div class="spinner"></div><span id="loaderText">جاري تحميل الأخبار...</span></div>';
+      const results = await Promise.allSettled(NEWS_FEEDS.map(f =>
+        fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(f.u))
+          .then(r => r.json()).then(d => (d.items || []).map(it => ({
+            title: (it.title || '').replace(/<!\[CDATA\[|\]\]>/g, '').trim(),
+            desc: (it.description || '').replace(/<[^>]*>/g, '').replace(/<!\[CDATA\[|\]\]>/g, '').slice(0, 140),
+            url: it.link || '#',
+            img: it.enclosure && it.enclosure.link ? it.enclosure.link : 'https://images.unsplash.com/photo-' + (1504711434969 + Math.floor(Math.random() * 500)) + '?w=400&q=80',
+            ts: it.pubDate,
+            c: f.c,
+            source: it.author || 'RSS'
+          }))).catch(() => []
+        )));
+      let all = [];
+      results.forEach(r => { if (r.status === 'fulfilled') all = all.concat(r.value); });
+      all = all.filter(a => a.title && a.title.length > 4);
+      // dedupe
+      const seen = {}; const uniq = [];
+      all.forEach(a => { if (!seen[a.title]) { seen[a.title] = 1; uniq.push(a); } });
+      uniq.sort((a, b) => new Date(b.ts) - new Date(a.ts));
+      newsArticles = uniq.slice(0, 200);
+      renderRealGrid();
+    }
+
+    function renderRealGrid() {
+      const list = activeCat === 'all' ? newsArticles : newsArticles.filter(a => a.c === activeCat);
+      const grid = document.getElementById('contentGrid');
+      if (!list.length) { grid.innerHTML = '<div class="loader">لا توجد أخبار في هذا القسم.</div>'; return; }
+      grid.innerHTML = list.slice(0, 18).map(item => {
+        const tag = CAT_EMOJI[item.c] + ' ' + (CAT_NAMES[item.c] || '');
+        return '<article class="card" onclick="openArticle(\'' + item.url.replace(/'/g, "\\'") + '\')">' +
+          '<div class="card-media"><img src="' + item.img + '" alt="' + item.title + '" loading="lazy" onerror="this.style.display=\'none\'"><div class="play-btn" style="font-size:0.9rem;width:40px;height:40px">📰</div></div>' +
+          '<div class="card-body">' +
+          '<div class="card-tag news">' + tag + '</div>' +
+          '<h3 class="card-title">' + item.title + '</h3>' +
+          '<p class="card-desc">' + item.desc + '</p>' +
+          '<div class="card-footer"><span>🕐 ' + timeAgo(item.ts) + '</span><span class="trend-up">↗ قراءة</span></div>' +
+          '</div></article>';
+      }).join('');
+    }
+
+    function selectCategory(cat, btn) {
+      activeCat = cat;
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderRealGrid();
+    }
+
+    function openArticle(url) {
+      window.open(url, '_blank', 'noopener');
+    }
+
+    // ============================================================
+    // 12. SEARCH
+    // ============================================================
+    function onSearch(val) {
+      const q = (val || '').trim().toLowerCase();
+      const grid = document.getElementById('contentGrid');
+      if (!q) { renderRealGrid(); return; }
+      const results = newsArticles.filter(a =>
+        (a.title || '').toLowerCase().includes(q) || (a.desc || '').toLowerCase().includes(q)
+      );
+      grid.innerHTML = results.length
+        ? results.slice(0, 18).map(item => {
+            const tag = CAT_EMOJI[item.c] + ' ' + (CAT_NAMES[item.c] || '');
+            return '<article class="card" onclick="openArticle(\'' + item.url.replace(/'/g, "\\'") + '\')">' +
+              '<div class="card-media"><img src="' + item.img + '" alt="' + item.title + '" loading="lazy" onerror="this.style.display=\'none\'"><div class="play-btn" style="font-size:0.9rem;width:40px;height:40px">📰</div></div>' +
+              '<div class="card-body"><div class="card-tag news">' + tag + '</div><h3 class="card-title">' + item.title + '</h3><p class="card-desc">' + item.desc + '</p><div class="card-footer"><span>🕐 ' + timeAgo(item.ts) + '</span></div></div></article>';
+          }).join('')
+        : '<div class="loader">لا توجد نتائج مطابقة.</div>';
+    }
+
+    function clearSearch() {
+      document.getElementById('searchInput').value = '';
+      renderRealGrid();
+    }
+
+    // ============================================================
+    // 13. INIT RENDER & OBSERVER
+    // ============================================================
     detectLocation();
-
-    // ============================================================
-    // 11. INIT RENDER & OBSERVER
-    // ============================================================
+    loadRealNews();
     renderBatch(baseItems);
-    observer.observe(document.getElementById('loader'));
 
-    // Fix: Remove any lingering onmouseout errors
+    // keep ticker on real headlines when available
+    function refreshTicker() {
+      if (newsArticles.length) {
+        const items = newsArticles.slice(0, 8).map((a, i) => '<div class="ticker-item"><span>#' + (i + 1) + '</span> ' + a.title + '</div>');
+        document.getElementById('tickerItems').innerHTML = items.join('') + items.join('');
+      }
+    }
+    // reload ticker after news arrive
+    const tickerTimer = setInterval(() => {
+      if (newsArticles.length) { refreshTicker(); clearInterval(tickerTimer); }
+    }, 3000);
+
     console.log('✅ BuzzNow initialized successfully!');
   </script>
 </body>
